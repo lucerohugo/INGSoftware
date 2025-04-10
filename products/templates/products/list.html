@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %} Products List {% endblock %}
+
+{% block content %}
+{% if user.is_authenticated and user.is_staff %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+            <tr>
+                <td scope=" row">{{ product.name }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.stock }}</td>
+                <td><a href="{% url 'product_detail' product.id %}"><i class="bi bi-eye-fill"></i></a></td>
+
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="3">No products available</td>
+            </tr>
+        {% endfor %}
+
+    </tbody>
+</table>    
+
+{% else %}
+  <h5> Usted no se encuentra logeado para acceder </h5>
+{% endif %}
+
+{% endblock %}
+
+
+

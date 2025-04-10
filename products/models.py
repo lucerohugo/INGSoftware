@@ -30,6 +30,9 @@ class Order(models.Model):
     )
     date = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"Order {self.id} for {self.customer.name}"
+
 
 #esto es el detalle del pedido, es decir, los productos que se piden
 class OrderDetail(models.Model):
