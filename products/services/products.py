@@ -1,6 +1,8 @@
 #products_services
 from products.models import Product
 from products.repositories.products import ProductRepository
+from typing import List
+from decimal import Decimal
 
 class ProductService:
     """
@@ -38,4 +40,10 @@ class ProductService:
         if product:
             return ProductRepository.update(product=product, price=price, stock=stock,)
         
-        
+    @staticmethod  
+    def sum_total_price(product_list: List[Product]) -> Decimal: 
+        total = Decimal(0)
+        for product in product_list:
+            total += product.price * product.stock
+        return total
+ 
