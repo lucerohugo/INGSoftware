@@ -1,6 +1,13 @@
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+
+def home_view(request):
+    return render(
+        request,
+        'index.html'
+    )
 
 def register_view(request):
     if request.method == 'POST':
@@ -30,6 +37,31 @@ def register_view(request):
         template_name='accounts/register.html'
     )
 
+def login_view(request):
+    if request.method == 'POST':
+        data = request.POST
+        username = data.get('username')
+        password = data.get('password')
+
+        user = authenticate(request, username=username, password=password) #autentica pero no lo loguea, si encuentra lo retorna true sino false
+    
+        if user is not None:
+            login(request, user)   #esto si hace que nuestro usuario este logueado
+            messages.success(request, "Sesion Iniciada")
+            return redirect('index')
+        else:
+            messages.error(request, "Usuario o contraseña incorrectos")
+            
+    return render(
+        request,
+        template_name='accounts/login.html'
+    )
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
+
+#van al final todos los metodos privados
 def _validate_pass(pass1, pass2):
     print(pass1==pass2)
     pass1 == pass2

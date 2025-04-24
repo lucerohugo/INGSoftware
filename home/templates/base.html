@@ -11,13 +11,20 @@
   </head>
   <body>
     <nav class="navbar navbar-light bg-light justify-content-between">
-        <a class="navbar-brand" href="#">Home</a>
+        <a class="navbar-brand" href="{% url 'index' %}">Home</a>
+        {% if user.is_authenticated %}
         <li class="navbar navbar-light bg-light">
             <a href="{% url 'product_list' %}">Products</a>
         </li>
         <li class="navbar navbar-light bg-light">
             <a href="{% url 'order_list' %}">Pedidos</a>
         </li>
+        <a class="btn btn-danger" href="{% url 'logout' %}">Salir</a>
+        {% else %}
+        <li class="navbar navbar-light bg-light">
+          <a class="btn btn-primary mx-auto d-block" href="{% url 'login' %}"> Iniciar Sesion </a> <!--centrar dsp-->
+          <a class="btn btn-secondary mx-auto d-block" href="{% url 'register' %}"> Registrarse </a>
+        {% endif %}
     </nav>
     {% if messages %}
           {% for message in messages %}
