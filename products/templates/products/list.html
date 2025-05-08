@@ -1,41 +1,37 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block title %} Products List {% endblock %}
 
 {% block content %}
-{% if user.is_authenticated and user.is_staff %}
 <table class="table">
-    <thead>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Price</th>
+      <th>Stock</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for product in products %}
         <tr>
-            <th>Product Name</th>
-            <th>Price</th>
-            <th>Stock</th>
-            <th>Action</th>
+          <td scope="row">{{ product.name }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.stock }}</td>
+          <td>
+            <a href="{% url 'product_detail' product.id %}"><i class="bi bi-eye-fill"></i></a>
+            <a href="{% url 'product_delete' product.id %}"><i class="bi bi-trash"></i></a>
+          </td>
         </tr>
-    </thead>
-    <tbody>
-        {% for product in products %}
-            <tr>
-                <td scope=" row">{{ product.name }}</td>
-                <td>{{ product.price }}</td>
-                <td>{{ product.stock }}</td>
-                <td><a href="{% url 'product_detail' product.id %}"><i class="bi bi-eye-fill"></i></a></td>
-
-            </tr>
-        {% empty %}
-            <tr>
-                <td colspan="3">No products available</td>
-            </tr>
-        {% endfor %}
-
+      {% endfor %}
     </tbody>
-</table>    
-<h2> El valor de todos los productos es ${{total_price}}</h2>
-{% else %}
-  <h5> Usted no se encuentra logeado para acceder </h5>
-{% endif %}
+  </table>
+  <h3>El total del valor de los productos es ${{total_price}}</h3>
 
+  <div class="row">
+    <div class="col">
+      <a href="{% url 'product_create' %}" class="btn btn-info">Crear nuevo producto</a>
+    </div>
+  </div>
 {% endblock %}
-
-
 
