@@ -11,6 +11,8 @@ from django.urls import reverse_lazy
 
 from products.models import Product, Order
 
+from products.forms import ProductForm
+
 
 class ProductList(ListView):
     model = Product # Product.objects.all()
@@ -28,7 +30,7 @@ class ProductDetail(DetailView):
 class ProductDelete(DeleteView):
     model = Product
     template_name = "products/delete.html"
-    pk_url_kwarg = 'product_id'
+    pk_url_kwarg = 'product_id'  
     success_url = reverse_lazy('product_list') # Nombre con el que va a encontrar el ID en la URL
 
 
@@ -54,14 +56,19 @@ class ProductCreate(View):
 
 
 class ProductCreateView(CreateView):
-    model = Product
+    form_class = ProductForm
     template_name = 'products/create_from_class.html'
-    success_url = reverse_lazy('product_list')
-    fields = ['name', 'price', 'stock']
+    success_url = reverse_lazy('product_list')  
+    
 
-    def form_valid(self, form):
-        messages.success(self.request, "Producto Creado")
-        return super().form_valid(form)
+    # def form_valid(self, form):
+    #     messages.success(self.request, "Producto Creado")
+    #     return super().form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Crear Producto'
+        return context
 
 
 class OrderList(ListView):
