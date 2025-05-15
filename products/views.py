@@ -10,7 +10,6 @@ from django.views.generic import (
 from django.urls import reverse_lazy
 
 from products.models import Product, Order
-
 from products.forms import ProductForm
 
 
