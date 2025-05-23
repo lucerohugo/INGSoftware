@@ -9,6 +9,7 @@ from products.views import (
     ProductDelete,
     ProductDetail,
     ProductList,
+    
 )
 
 urlpatterns = [
@@ -46,5 +47,5 @@ urlpatterns = [
         route='order/<int:order_id>/detail/',
         view=OrderDetailCreate.as_view(),
         name='order_detail'
-    ),
+    ),    
 ]

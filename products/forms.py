@@ -10,7 +10,7 @@ from products.models import (
 class ProductForm(forms.ModelForm):
     class Meta:
         model= Product
-        fields = ['name', 'price', 'stock']
+        fields = ['name', 'price', 'stock', 'image']
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': 'Nombre del producto'}),
             'price': forms.NumberInput(attrs={'placeholder': 'Precio'}),

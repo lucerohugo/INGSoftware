@@ -5,7 +5,7 @@ from products.models import Customer, Order, Product
 #registramos los modelos en el admin
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'price', 'stock')
+    list_display = ('id', 'name', 'price', 'stock', 'image')
     list_filter = ('name',)
     search_fields = ('name', 'stock')
 
