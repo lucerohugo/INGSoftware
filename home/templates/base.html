@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -13,11 +14,11 @@
   </head>
   <body>
     <nav class="navbar navbar-light bg-light justify-content-between">
-        <a class="navbar-brand" href="{% url 'index' %}">Home</a>
+        <a class="navbar-brand" href="{% url 'index' %}">{% trans "Home" %}</a>
         <img src="{% static 'img/logo.png' %}" alt="">
         {% if user.is_authenticated %}
         <li class="navbar navbar-light bg-light">
-            <a href="{% url 'product_list' %}">Products</a>
+            <a href="{% url 'product_list' %}">{% trans "Products" %}</a>
         </li>
         <li class="navbar navbar-light bg-light">
             <a href="{% url 'order_list' %}">Pedidos</a>
@@ -28,6 +29,13 @@
           <a class="btn btn-primary mx-auto d-block" href="{% url 'login' %}"> Iniciar Sesion </a> <!--centrar dsp-->
           <a class="btn btn-secondary mx-auto d-block" href="{% url 'register' %}"> Registrarse </a>
         {% endif %}
+        <form action="{% url 'set_language' %}" method="post">
+          {% csrf_token %}
+          <select name="language" id="" class="form-control" onchange="this.form.submit()">
+            <option value="es" {% if LANGUAGE_CODE == 'es' %} selected {% endif %}>ES</option>
+            <option value="en" {% if LANGUAGE_CODE == 'en' %} selected {% endif %}>EN</option>
+          </select>
+        </form>
     </nav>
     {% if messages %}
           {% for message in messages %}

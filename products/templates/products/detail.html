@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load i18n %}
+
 {% block title %} Detail {% endblock %}
 
 {% block content %}
@@ -7,7 +9,7 @@
     <h2>{{ product.name }}</h2>
     <ul>
         <li>
-            Price: {{ product.price }}
+            {% trans 'Price' %}: {{ product.price }}
             Stock: {{ product.stock }}
             {% if product.image %}
                 <img src="{{ product.image.url }}" alt="">
