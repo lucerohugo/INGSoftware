@@ -65,3 +65,28 @@ class OrderDetail(models.Model):
 
     def __str__(self):
         return f"{self.quantity} - {self.product}"
+    
+
+class OrderDetailAuditLog(models.Model):
+    """
+    Modelo para registrar los cambios en OrderDetail
+    """
+    order_detail = models.ForeignKey(
+        OrderDetail,
+        on_delete=models.CASCADE,
+        related_name='logs'
+    )
+    action = models.CharField(
+        max_length=12,
+        choices=[
+            ('created', _('Created')),
+            ('updated', _('Updated'))
+        ],
+    )
+    quantity = models.IntegerField()
+    product_name = models.CharField(
+        max_length=255,
+    )
+    timestamp = models.DateTimeField(
+        auto_now_add=True
+    )
